@@ -1,36 +1,35 @@
-import { useState, useMemo, useCallback } from 'react'
+import { useState, useCallback } from 'react'
+import { useStore } from './../../helpers'
+import { actions } from '../../store'
 import Button from './partial/Button'
 
 const Footer = () => {
-	const [selected, setSelected] = useState('all')
+	const [store, dispatch] = useStore()
 	const [toggle, setToggle] = useState(true)
-
-	const actionList = useMemo(() => [
-		{id: 'all', name: 'All'},
-		{id: 'active', name: 'Active'},
-		{id: 'completed', name: 'Completed'},
-	], [])
+	const jobs = store.jobs.filter(store.filters[store.filter]['action'])
 
 	const handleFilter = useCallback((id) => {
-		setSelected(id)
-	}, [])
+		dispatch(actions.changeJobFilter(id))
+	}, [dispatch])
 
 	const handleToggle = useCallback((toggle) => {
+		const filterIds = jobs.map(item => item.id)
+		dispatch(actions.updateJobStatus(filterIds))
 		setToggle(!toggle)
-	}, [])
+	}, [dispatch, jobs])
 
   return (
     <footer className="footer">
 			<ul className="filters">
-				{actionList.map(item => {
+				{Object.keys(store.filters).map(key => {
 					return (
-						<li key={item.id}>
+						<li key={key}>
 							<Button
-								value={item.id}
-								selected={selected === item.id}
+								value={key}
+								selected={store.filter === key}
 								onClick={handleFilter}
 							>
-								{item.name}
+								{store.filters[key].name}
 							</Button>
 						</li>
 					)

@@ -52,7 +52,6 @@ body {
 	background-color: #e0e0e6;
 }
 
-
 .todo-app .title img {
 	margin-right: 5px;
 }
@@ -90,12 +89,22 @@ body {
 	margin: 0;
 	padding: 0;
 	list-style: none;
+	animation: fadeShow ease-in .5s;
+}
+
+.todo-list .deleted {
+	animation: fadeOut ease-out .5s forwards;
+}
+
+.todo-list .view:hover {
+	background-color: #f7f7f5;
 }
 
 .todo-list li {
 	position: relative;
 	font-size: 24px;
 	border-bottom: 1px solid #ededed;
+	animation: fadeIn ease-out 0.5s forwards;
 }
 
 .todo-list li:last-child {
@@ -103,14 +112,14 @@ body {
 }
 
 .todo-list li label {
-	/* word-break: break-all; */
+	cursor: pointer;
 	padding: 16px;
+	margin-right: 60px;
 	display: block;
 	line-height: 1.2;
-	/* transition: color 0.4s; */
 }
 
-.todo-list li.completed label {
+.todo-list li.done label {
 	color: #d9d9d9;
 	text-decoration: line-through;
 }
@@ -132,6 +141,44 @@ body {
 .todo-list li .destroy:after {
 	content: '×';
 	opacity: .5;
+}
+
+.todo-list .not-found {
+	padding: 16px;
+	font-size: 16px;
+	color: #a39c9c;
+	text-align: center;
+}
+
+@keyframes fadeShow {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes fadeOut {
+	from {
+		opacity: 1;
+		transform: translate(0);
+	}
+	to {
+		opacity: 0;
+		transform: translateX(100px);
+	}
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateX(100px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
 }
 
 /* Footer */
@@ -172,12 +219,12 @@ body {
 
 .toggle-all {
 	cursor: pointer;
-	background-color: #eee;
+	background-color: #cadd9a;
 }
 .toggle-all:hover {
 	opacity: .8;
 }
 
-.toggle-all.selected{
-	background-color: #cadd9a;
+.toggle-all:active{
+	background-color: #eee;
 }

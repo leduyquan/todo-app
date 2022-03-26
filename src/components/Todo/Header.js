@@ -1,20 +1,22 @@
 import Button from './partial/Button';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { useStore } from './../../helpers'
 import { actions } from '../../store';
 
 const Header = () => {
+  const [store, dispatch] = useStore()
   const [toggle, setToggle] = useState(false)
-  const [state, dispatch] = useStore()
+  const inputRef = useRef()
 
   const onKeyUp = (e) => {
     if (e.key === 'Enter') {
       const payload = {
         id: 'id_' + (new Date()).getTime(),
         name: e.target.value.trim(),
-        status: true
+        done: false
       }
       dispatch(actions.addJob(payload))
+      inputRef.current.value = ''
     }
   }
 
@@ -37,12 +39,11 @@ const Header = () => {
         </Button>
       </div>
       <input
+        ref={inputRef}
         type="text"
         className="new-todo"
         placeholder="Enter new job..."
-        autoFocus
         onKeyUp={onKeyUp}
-        // onChange={(e) => setJob(e.target.value)}
       />
     </header>
   )

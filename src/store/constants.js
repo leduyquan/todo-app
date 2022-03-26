@@ -1,3 +1,5 @@
 export const ADD_JOB = 'ADD_JOB';
-export const REMOVE_JOB = 'REMOVE_JOB';
-export const GET_JOB_FILTER = 'GET_JOB_FILTER';
+export const DELETE_JOB = 'DELETE_JOB';
+export const UPDATE_JOB = 'UPDATE_JOB';
+export const UPDATE_JOB_STATUS = 'UPDATE_JOB_STATUS';
+export const CHANGE_JOB_FILTER = 'CHANGE_JOB_FILTER';

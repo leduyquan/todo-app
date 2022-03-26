@@ -1,16 +1,15 @@
-import { memo } from 'react'
+import { memo, useMemo } from 'react'
 
-const Button = memo((props) => {
+const Button = (props) => {
   const { value, selected, onClick, className, children } = props
 
-  const getClassBtn = () => {
+  const classBtn = useMemo(() => {
     const classes = []
     selected && classes.push('selected')
     className && classes.push(className || '')
     return classes.join(' ')
-  }
+  }, [selected, className])
 
-  const classBtn = getClassBtn()
 
   return (
     <button
@@ -20,6 +19,6 @@ const Button = memo((props) => {
       {children}
     </button>
   )
-})
+}
 
-export default Button;
+export default memo(Button);

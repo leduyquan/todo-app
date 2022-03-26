@@ -1,11 +1,25 @@
+import { useState, useMemo } from "react";
 
+const Item = ({data, onDelete, onSwitchStatus}) => {
+  const [deleted, setDeleted] = useState(false)
 
-const Item = () => {
+  const classItem = useMemo(() => {
+    const classes = []
+    data.done && classes.push('done')
+    deleted && classes.push('deleted')
+    return classes.join(' ')
+  }, [data.done, deleted])
+
+  const handleDelete = (id) => {
+    setDeleted(true)
+    setTimeout(() => onDelete(id), 500)
+  }
+
   return (
-    <li className="completed">
+    <li className={classItem}>
       <div className="view">
-        <label>Taste JavaScript</label>
-        <button className="destroy"></button>
+        <label onClick={() => onSwitchStatus(data)}>{data.name}</label>
+        <button className="destroy" onClick={() => handleDelete(data.id)}></button>
       </div>
 		</li>
   )
