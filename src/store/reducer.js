@@ -1,8 +1,9 @@
-import { ADD_JOB, DELETE_JOB, UPDATE_JOB, UPDATE_JOB_STATUS, CHANGE_JOB_FILTER } from './constants'
+import { ADD_JOB, DELETE_JOB, UPDATE_JOB, UPDATE_JOB_STATUS, CHANGE_JOB_FILTER, CHANGE_THEME } from './constants'
 import storage from '../util/storage'
 
 const initState = {
-  jobs: storage.get(),
+  jobs: storage.getJobs(),
+  theme: storage.getTheme(),
   filter: 'all',
   filters: {
     all: {
@@ -24,14 +25,14 @@ const reducer = (state, action) => {
   switch (action.type) {
     case ADD_JOB:
       const dataAdd = [...state.jobs, action.payload]
-      storage.set(dataAdd)
+      storage.setJobs(dataAdd)
       return {
         ...state,
         jobs: dataAdd
       }
     case DELETE_JOB:
       const dataFilter = state.jobs.filter(item => item.id !== action.id)
-      storage.set(dataFilter)
+      storage.setJobs(dataFilter)
       return {
         ...state,
         jobs: dataFilter
@@ -43,7 +44,7 @@ const reducer = (state, action) => {
         }
         return item
       })
-      storage.set(dataUpdate)
+      storage.setJobs(dataUpdate)
       return {
         ...state,
         jobs: dataUpdate
@@ -55,7 +56,7 @@ const reducer = (state, action) => {
         }
         return item
       })
-      storage.set(dataToggleStatus)
+      storage.setJobs(dataToggleStatus)
       return {
         ...state,
         jobs: dataToggleStatus
@@ -63,7 +64,13 @@ const reducer = (state, action) => {
     case CHANGE_JOB_FILTER:
       return {
         ...state,
-        filter: action.name
+        filter: action.payload
+      }
+    case CHANGE_THEME:
+      storage.setTheme(action.payload)
+      return {
+        ...state,
+        theme: action.payload
       }
     default:
       return state

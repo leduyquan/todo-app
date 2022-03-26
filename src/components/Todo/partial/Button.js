@@ -1,23 +1,22 @@
-import { memo, useMemo } from 'react'
+import { memo } from 'react'
+import { StyledButton } from './styled-custom'
 
 const Button = (props) => {
-  const { value, selected, onClick, className, children } = props
+  const { value, selected, onClick, type, children } = props
 
-  const classBtn = useMemo(() => {
-    const classes = []
-    selected && classes.push('selected')
-    className && classes.push(className || '')
-    return classes.join(' ')
-  }, [selected, className])
+  const bgColor = {
+    'primary': '#cadd9a',
+    'default': selected ? '#fecba5' : 'initial',
 
+  }[type]
 
   return (
-    <button
-      className={classBtn}
+    <StyledButton
+      bgColor={bgColor}
       onClick={() => onClick(value)}
     >
       {children}
-    </button>
+    </StyledButton>
   )
 }
 

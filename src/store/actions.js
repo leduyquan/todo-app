@@ -1,4 +1,4 @@
-import { ADD_JOB, DELETE_JOB, UPDATE_JOB, UPDATE_JOB_STATUS, CHANGE_JOB_FILTER } from './constants'
+import { ADD_JOB, DELETE_JOB, UPDATE_JOB, UPDATE_JOB_STATUS, CHANGE_JOB_FILTER, CHANGE_THEME } from './constants'
 
 export const addJob = payload => ({
   type: ADD_JOB,
@@ -21,7 +21,12 @@ export const updateJobStatus = ids => ({
   ids
 })
 
-export const changeJobFilter = name => ({
+export const changeJobFilter = payload => ({
   type: CHANGE_JOB_FILTER,
-  name
+  payload
+})
+
+export const changeTheme = payload => ({
+  type: CHANGE_THEME,
+  payload
 })

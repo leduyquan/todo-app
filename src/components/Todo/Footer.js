@@ -25,6 +25,7 @@ const Footer = () => {
 					return (
 						<li key={key}>
 							<Button
+								type="default"
 								value={key}
 								selected={store.filter === key}
 								onClick={handleFilter}
@@ -36,9 +37,10 @@ const Footer = () => {
 				})}
 			</ul>
 			<Button
+				type="primary"
 				value={toggle}
 				selected={toggle}
-				className="toggle-all"
+				// className="toggle-all"
 				onClick={handleToggle}
 			>
 				Toggle All

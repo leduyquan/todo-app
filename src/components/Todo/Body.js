@@ -20,7 +20,7 @@ const Body = () => {
 
   return (
     <section className="todo-wrapper">
-      <ul className="todo-list">
+      <ul className={`todo-list ${jobs.length > 5 ? 'scrollbar' : ''}`}>
         {jobs.map(item => {
           return <Item
             key={item.id}

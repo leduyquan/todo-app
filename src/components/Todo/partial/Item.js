@@ -1,14 +1,8 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
+import { StyledLi } from './styled-custom'
 
 const Item = ({data, onDelete, onSwitchStatus}) => {
   const [deleted, setDeleted] = useState(false)
-
-  const classItem = useMemo(() => {
-    const classes = []
-    data.done && classes.push('done')
-    deleted && classes.push('deleted')
-    return classes.join(' ')
-  }, [data.done, deleted])
 
   const handleDelete = (id) => {
     setDeleted(true)
@@ -16,12 +10,12 @@ const Item = ({data, onDelete, onSwitchStatus}) => {
   }
 
   return (
-    <li className={classItem}>
+    <StyledLi className={deleted ? 'deleted' : ''} done={data.done} >
       <div className="view">
         <label onClick={() => onSwitchStatus(data)}>{data.name}</label>
         <button className="destroy" onClick={() => handleDelete(data.id)}></button>
       </div>
-		</li>
+		</StyledLi>
   )
 }
 

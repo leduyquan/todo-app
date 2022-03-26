@@ -3,6 +3,7 @@
 	--top-header: calc(10px - var(--top-margin));
 	--bg-dark-color: #15141A;
 	--bg-light-color: #FBFBFE;
+	--item-height: 60px;
 }
 
 body {
@@ -62,7 +63,6 @@ body {
 	font-size: 100px;
 	font-weight: 100;
 	text-align: center;
-	color: rgba(21, 1, 1, 0.3);
 }
 
 .new-todo {
@@ -72,7 +72,7 @@ body {
 	padding: 16px;
 	box-sizing: border-box;
 	border: none;
-	background: rgba(0, 0, 0, 0.003);
+	background: #fafafa;
 	font-family: inherit;
 	font-weight: inherit;
 	color: inherit;
@@ -96,32 +96,12 @@ body {
 	animation: fadeOut ease-out .5s forwards;
 }
 
+.todo-list .view {
+	color: #2B2A33;
+}
+
 .todo-list .view:hover {
 	background-color: #f7f7f5;
-}
-
-.todo-list li {
-	position: relative;
-	font-size: 24px;
-	border-bottom: 1px solid #ededed;
-	animation: fadeIn ease-out 0.5s forwards;
-}
-
-.todo-list li:last-child {
-	border-bottom: none;
-}
-
-.todo-list li label {
-	cursor: pointer;
-	padding: 16px;
-	margin-right: 60px;
-	display: block;
-	line-height: 1.2;
-}
-
-.todo-list li.done label {
-	color: #d9d9d9;
-	text-decoration: line-through;
 }
 
 .todo-list li .destroy {
@@ -144,10 +124,18 @@ body {
 }
 
 .todo-list .not-found {
-	padding: 16px;
 	font-size: 16px;
+	padding: 16px;
 	color: #a39c9c;
-	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.todo-list.scrollbar {
+	overflow-y: auto;
+	overflow-x: hidden;
+	max-height: calc(var(--item-height) * 5);
 }
 
 @keyframes fadeShow {
@@ -186,6 +174,7 @@ body {
 	display: flex;
 	justify-content: space-between;
 	color: #777;
+	background-color: #fdfdfd;
 	padding: 5px 15px;
 	border-top: 1px solid #e6e6e6;
 }
@@ -198,33 +187,4 @@ body {
 
 .filters li {
 	display: inline;
-}
-
-.footer button {
-	margin: 3px;
-	padding: 3px 7px;
-	border: 1px solid rgba(149, 140, 140, 0.1);
-	border-radius: 3px;
-}
-
-.footer .filters button:hover {
-	cursor: pointer;
-	background-color: #eee;
-}
-
-.footer .filters button.selected {
-	border-color: rgba(149, 140, 140, 0.2);
-	background-color: #fecba5;
-}
-
-.toggle-all {
-	cursor: pointer;
-	background-color: #cadd9a;
-}
-.toggle-all:hover {
-	opacity: .8;
-}
-
-.toggle-all:active{
-	background-color: #eee;
 }

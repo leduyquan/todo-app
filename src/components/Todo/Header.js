@@ -1,11 +1,10 @@
 import Button from './partial/Button';
-import { useState, useCallback, useRef } from 'react';
+import { useCallback, useRef } from 'react';
 import { useStore } from './../../helpers'
 import { actions } from '../../store';
 
 const Header = () => {
   const [store, dispatch] = useStore()
-  const [toggle, setToggle] = useState(false)
   const inputRef = useRef()
 
   const onKeyUp = (e) => {
@@ -20,19 +19,21 @@ const Header = () => {
     }
   }
 
-  const handleToggle = useCallback((toggle) => {
-		setToggle(!toggle)
-	}, [])
+  const handleToggle = useCallback(() => {
+		const themeSelected = store.theme === 'light' ? 'dark' : 'light'
+    dispatch(actions.changeTheme(themeSelected))
+	}, [dispatch, store.theme])
 
   return (
     <header className="header">
       <div className="title">
         <h1>todos</h1>
-        <Button value={toggle} onClick={handleToggle}>
+        <Button value={store.theme === 'light'} onClick={handleToggle}>
           <img
-            src={toggle ?
-              'https://developer.mozilla.org/static/media/theme-dark.2204a73b.svg' :
-              'https://developer.mozilla.org/static/media/theme-light.af1aa388.svg'}
+            src={store.theme === 'light' ?
+              'https://developer.mozilla.org/static/media/theme-light.af1aa388.svg' :
+              'https://developer.mozilla.org/static/media/theme-dark.2204a73b.svg'
+            }
             alt=""
           />
           <span>Theme</span>
