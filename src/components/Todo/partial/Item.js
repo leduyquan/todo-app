@@ -3,7 +3,6 @@ import { StyledLi } from './styled-custom'
 
 const Item = ({data, onDelete, onSwitchStatus}) => {
   const [deleted, setDeleted] = useState(false)
-
   const handleDelete = (id) => {
     setDeleted(true)
     setTimeout(() => onDelete(id), 500)

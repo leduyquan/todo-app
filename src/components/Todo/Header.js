@@ -1,36 +1,15 @@
 import Button from './partial/Button';
-import { useCallback, useRef } from 'react';
-import { useStore } from './../../helpers'
-import { actions } from '../../store';
+import { forwardRef } from 'react';
 
-const Header = () => {
-  const [store, dispatch] = useStore()
-  const inputRef = useRef()
-
-  const onKeyUp = (e) => {
-    if (e.key === 'Enter') {
-      const payload = {
-        id: 'id_' + (new Date()).getTime(),
-        name: e.target.value.trim(),
-        done: false
-      }
-      dispatch(actions.addJob(payload))
-      inputRef.current.value = ''
-    }
-  }
-
-  const handleToggle = useCallback(() => {
-		const themeSelected = store.theme === 'light' ? 'dark' : 'light'
-    dispatch(actions.changeTheme(themeSelected))
-	}, [dispatch, store.theme])
-
+const Header = (props, ref) => {
+  const {theme, handleToggle, onKeyUp} = props
   return (
     <header className="header">
       <div className="title">
         <h1>todos</h1>
-        <Button value={store.theme === 'light'} onClick={handleToggle}>
+        <Button value={theme} onClick={handleToggle}>
           <img
-            src={store.theme === 'light' ?
+            src={theme ?
               'https://developer.mozilla.org/static/media/theme-light.af1aa388.svg' :
               'https://developer.mozilla.org/static/media/theme-dark.2204a73b.svg'
             }
@@ -40,7 +19,7 @@ const Header = () => {
         </Button>
       </div>
       <input
-        ref={inputRef}
+        ref={ref}
         type="text"
         className="new-todo"
         placeholder="Enter new job..."
@@ -50,4 +29,4 @@ const Header = () => {
   )
 }
 
-export default Header;
+export default forwardRef(Header);
